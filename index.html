@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta charset="utf-8" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div class="row" id="app">
+			<div class="col s12 m8" id="MainContent">
+				<div class="progress" v-show="loadingDataShowing">
+					<div class="indeterminate"></div>
+				</div>
+				<input type="text" v-model="searchData">
+				<div class="col s12 m12 l12" v-for="(item,index) in maskData2" v-if="index != 0 && index <= 10">
+					<div class="card blue darken-4">
+						<div class="card-content white-text">
+							<span class="card-title">{{item[1]}}</span>
+							<p>{{item[2]}} - {{item[3]}}</p>
+							<p>成人口罩剩下: {{item[4]}}</p>
+							<p>兒童口罩剩下: {{item[5]}}</p>
+							<p>更新時間: {{item[6]}}</p>
+						</div>
+						<div class="card-action">
+							<a class="btn waves-light red" target="_blank" :href="'https://www.google.com.tw/maps/search/'+item[2]+'?hl=zh-TW'"><i
+								 class="material-icons">map</i></a>
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="col s12 m4">
+				<div class="card blue lighten-4">
+					<div class="card-title">
+						&copy;2020 Hsuan1117
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function LCS(d, e) {
+				var f = d.length,
+					g = e.length,
+					c = [],
+					a, b;
+				for (a = 0; a <= f; a++) c.push([0]);
+				for (b = 0; b < g; b++) c[0].push(0);
+				for (a = 0; a < f; a++)
+					for (b = 0; b < g; b++) c[a + 1][b + 1] = d[a] === e[b] ? c[a][b] + 1 : Math.max(c[a + 1][b], c[a][b + 1]);
+				return function h(a, b) {
+					return 0 === a * b ? "" : d[a - 1] === e[b - 1] ? h(a - 1, b - 1) + d[a - 1] : c[a][b - 1] > c[a - 1][b] ? h(a, b -
+						1) : h(a - 1, b)
+				}(f, g)
+			};
+			var idx;
+			var pos = []
+			var app = new Vue({
+				el: "#app",
+				data: {
+					"loadingDataShowing": true,
+					"maskData": [],
+					"isThird": false,
+					"searchData": "",
+					"maskData2" : []
+				},
+				methods: {
+
+				},
+				created: function() {
+					fetch("https://www.yiarashi.com/user7/proxy.php").then(function(res) {
+						return res.text();
+					}).then(function(res) {
+						res = JSON.parse(res.replace(/臺/g,'台'))
+						if (res.length == 0) {
+							fetch("https://www.yiarashi.com/user7/proxy.php").then(function(res) {
+								return res.json();
+							}).then(function(res) {
+								app.maskData = res;
+								app.maskData2 = res;
+								app.loadingDataShowing = false;
+							})
+						} else {
+							app.maskData = res;
+							app.maskData2 = res;
+							app.loadingDataShowing = false;
+						}
+					})
+				},
+				watch: {
+					searchData: function(s) {
+						s = s.replace(/臺/g,"台")
+						app.maskData2 = app.maskData.filter(function(item){
+							let x;
+							try {
+								x = item[2].indexOf(s)
+							}catch(e){
+								x = -1
+							}
+							return x > -1
+						})
+						return s;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
