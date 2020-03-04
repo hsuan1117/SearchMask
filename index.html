@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<title></title>
+		<title>口罩剩餘數量</title>
 	</head>
 	<body>
 		<div class="row" id="app">
@@ -15,7 +15,7 @@
 				<div class="progress" v-show="loadingDataShowing">
 					<div class="indeterminate"></div>
 				</div>
-				<input type="text" v-model="searchData">
+				<input type="text" placeholder="查詢區域" v-model="searchData">
 				<div class="col s12 m12 l12" v-for="(item,index) in maskData2" v-if="index != 0 && index <= 10">
 					<div class="card blue darken-4">
 						<div class="card-content white-text">
