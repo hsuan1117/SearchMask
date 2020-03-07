@@ -16,7 +16,10 @@
 					<div class="indeterminate"></div>
 				</div>
 				<input type="text" placeholder="查詢區域" v-model="searchData">
-				<div class="col s12 m12 l12" v-for="(item,index) in maskData2" v-if="index != 0 && index <= 10">
+				<button class="btn waves-light green" target="_blank" ><i class="material-icons">navigate_next</i></button>
+				<button class="btn waves-light green" target="_blank" ><i class="material-icons">navigate_before</i></button>
+				
+				<div class="col s12 m12 l12" v-for="(item,index) in maskData2" v-if="index != 0 && pageMin < index && index <= pageMax">
 					<div class="card blue darken-4">
 						<div class="card-content white-text">
 							<span class="card-title">{{item[1]}}</span>
@@ -65,10 +68,19 @@
 					"maskData": [],
 					"isThird": false,
 					"searchData": "",
-					"maskData2" : []
+					"maskData2" : [],
+					"pageMin":0,
+					"pageMax":10
 				},
 				methods: {
-
+					"next":function(){
+						app.pageMin += 10
+						app.pageMax += 10
+					},
+					"before":function(){
+						app.pageMin -= 10
+						app.pageMax -= 10
+					}
 				},
 				created: function() {
 					fetch("https://www.yiarashi.com/user7/proxy.php").then(function(res) {
