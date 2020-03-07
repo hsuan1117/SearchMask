@@ -7,6 +7,9 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+
 		<title>口罩剩餘數量</title>
 	</head>
 	<body>
@@ -120,6 +123,10 @@
 					}
 				}
 			})
+			var platform = new H.service.Platform({
+			  'apikey': 'FYxrWz5M8CIz7ZXfGk3X0VEQ14WnNSr9NRzEOjw9BQA'
+			});
+
 		</script>
 	</body>
 </html>
