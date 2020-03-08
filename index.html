@@ -93,22 +93,25 @@
 						app.pageMax -= 10
 					},
 					"locationPermission":function(){
-						navigator.permissions.query({name:'geolocation'}).then(function(result) {
-    if (result.state == 'granted') {
-      alert(result.state);
-      app.locationPermissionIcon = 'location_on';
-    } else if (result.state == 'prompt') {
-      alert(result.state);
-      app.locationPermissionIcon = '';
-      navigator.geolocation.getCurrentPosition(revealPosition,positionDenied,geoSettings);
-    } else if (result.state == 'denied') {
-      alert(result.state);
-      app.locationPermissionIcon = 'location_disabled';
-    }
-    result.onchange = function() {
-      alert(result.state);
-    }
-  });
+						function handle(result) {
+							app.locationPermissionIcon = 'location_on';
+						var crd = result.coords;
+
+  alert('Your current position is:');
+  alert('Latitude : ' + crd.latitude);
+  alert('ude: ' + crd.longitude);
+  alert('More or less ' + crd.accuracy + ' meters.');
+						}
+						function error(err) {
+  alert('ERROR(' + err.code + '): ' + err.message);
+  app.locationPermissionIcon = 'location_disabled';
+						};
+navigator.geolocation.getCurrentPosition(handle,error,{
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+});
+      
 					}
 				},
 				created: function() {
