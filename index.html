@@ -19,8 +19,8 @@
 					<div class="indeterminate"></div>
 				</div>
 				<input type="text" placeholder="查詢區域" v-model="searchData">
-				<button class="btn waves-light green" target="_blank" :class="{'disabled':'!(pageMin >= 0)'}" @click="before()"><i class="material-icons">navigate_before</i></button>
-				<button class="btn waves-light green" target="_blank" :class="{'disabled':'!(pageMax <= maskData2.length)'}" @click="next()"  ><i class="material-icons">navigate_next</i></button>
+				<button class="btn waves-light green" target="_blank" :class="{'disabled':'pageMin < 0'}" @click="before()"><i class="material-icons">navigate_before</i></button>
+				<button class="btn waves-light green" target="_blank" :class="{'disabled':'pageMax > maskData2.length'}" @click="next()"  ><i class="material-icons">navigate_next</i></button>
 				
 				<div class="col s12 m12 l12" v-for="(item,index) in maskData2" v-if="index != 0 && pageMin < index && index <= pageMax">
 					<div class="card blue darken-4">
