@@ -46,6 +46,12 @@
 						&copy;2020 Hsuan1117
 					</div>
 				</div>
+				<div class="card blue lighten-4">
+					<div class="card-title">
+						<button class="waves-effect waves-light btn"><i class="material-icons right">{{locationPermissionIcon}}</i>定位</button>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 		<script>
@@ -74,7 +80,8 @@
 					"searchData": "",
 					"maskData2" : [],
 					"pageMin":0,
-					"pageMax":10
+					"pageMax":10,
+					"locationPermissionIcon":"location_off"
 				},
 				methods: {
 					"next":function(){
@@ -127,7 +134,9 @@
 			var platform = new H.service.Platform({
 			  'apikey': 'FYxrWz5M8CIz7ZXfGk3X0VEQ14WnNSr9NRzEOjw9BQA'
 			});
-
+			/*location_disabled
+location_off
+location_on*/
 		</script>
 	</body>
 </html>
