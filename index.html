@@ -46,7 +46,7 @@
 						&copy;2020 Hsuan1117
 					</div>
 				</div>
-				<div class="card blue lighten-4">
+				<div class="card gray lighten-4">
 					<div class="card-title">
 						<button class="waves-effect waves-light btn"><i class="material-icons right">{{locationPermissionIcon}}</i>定位</button>
 					</div>
@@ -91,6 +91,24 @@
 					"before":function(){
 						app.pageMin -= 10
 						app.pageMax -= 10
+					},
+					"locationPermission":function(){
+						navigator.permissions.query({name:'geolocation'}).then(function(result) {
+    if (result.state == 'granted') {
+      alert(result.state);
+      app.locationPermissionIcon = 'location_on';
+    } else if (result.state == 'prompt') {
+      alert(result.state);
+      app.locationPermissionIcon = '';
+      navigator.geolocation.getCurrentPosition(revealPosition,positionDenied,geoSettings);
+    } else if (result.state == 'denied') {
+      alert(result.state);
+      app.locationPermissionIcon = 'location_disabled';
+    }
+    result.onchange = function() {
+      alert(result.state);
+    }
+  });
 					}
 				},
 				created: function() {
