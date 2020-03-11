@@ -130,6 +130,19 @@
 							app.loadingDataShowing = false;
 						}
 					})
+					fetch("https://www.yiarashi.com/user7/proxy2.php").then(function(res) {
+						return res.json();
+					}).then(function(res) {
+						if (res.length == 0) {
+							fetch("https://www.yiarashi.com/user7/proxy2.php").then(function(res) {
+								return res.json();
+							}).then(function(res) {
+								app.hospitalLocation = res;
+							})
+						} else {
+							app.hospitalLocation = res;
+						}
+					})
 				},
 				watch: {
 					searchData: function(s) {
