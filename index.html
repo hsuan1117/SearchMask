@@ -95,22 +95,19 @@
 					"locationPermission":function(){
 						function handle(result) {
 							app.locationPermissionIcon = 'location_on';
-						var crd = result.coords;
-
-  alert('Your current position is:');
-  alert('Latitude : ' + crd.latitude);
-  alert('ude: ' + crd.longitude);
-  alert('More or less ' + crd.accuracy + ' meters.');
+							var crd = result.coords;
+  							alert('Latitude : ' + crd.latitude);
+  							alert('ude: ' + crd.longitude);
 						}
 						function error(err) {
-  alert('ERROR(' + err.code + '): ' + err.message);
-  app.locationPermissionIcon = 'location_disabled';
+  							alert('ERROR(' + err.code + '): ' + err.message);
+  							app.locationPermissionIcon = 'location_disabled';
 						};
-navigator.geolocation.getCurrentPosition(handle,error,{
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-});
+						navigator.geolocation.getCurrentPosition(handle,error,{
+  							enableHighAccuracy: true,
+  							timeout: 5000,
+  							maximumAge: 0
+						});
       
 					}
 				},
@@ -155,9 +152,17 @@ navigator.geolocation.getCurrentPosition(handle,error,{
 			var platform = new H.service.Platform({
 			  'apikey': 'FYxrWz5M8CIz7ZXfGk3X0VEQ14WnNSr9NRzEOjw9BQA'
 			});
-			/*location_disabled
-location_off
-location_on*/
+			function distance(lat1,lon1,lat2,lon2) {
+				var R = 6371; // km (change this constant to get miles)
+				var dLat = (lat2-lat1) * Math.PI / 180;
+				var dLon = (lon2-lon1) * Math.PI / 180;
+				var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+					Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+					Math.sin(dLon/2) * Math.sin(dLon/2);
+				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+				var d = R * c;
+				return d;
+			}
 		</script>
 	</body>
 </html>
