@@ -112,12 +112,12 @@
 					}
 				},
 				created: function() {
-					fetch("https://www.yiarashi.com/user7/proxy.php").then(function(res) {
+					fetch("https://b.hsuan.app/proxy.php").then(function(res) {
 						return res.text();
 					}).then(function(res) {
 						res = JSON.parse(res.replace(/臺/g,'台'))
 						if (res.length == 0) {
-							fetch("https://t22.tfcis.org/proxy.php").then(function(res) {
+							fetch("https://b.hsuan.app/proxy.php").then(function(res) {
 								return res.json();
 							}).then(function(res) {
 								app.maskData = res;
@@ -134,7 +134,7 @@
 						return res.json();
 					}).then(function(res) {
 						if (res.length == 0) {
-							fetch("https://www.yiarashi.com/user7/proxy2.php").then(function(res) {
+							fetch("https://b.hsuan.app/proxy.php").then(function(res) {
 								return res.json();
 							}).then(function(res) {
 								app.hospitalLocation = res;
