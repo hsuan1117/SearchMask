@@ -112,12 +112,12 @@
 					}
 				},
 				created: function() {
-					fetch("https://b.hsuan.app/proxy.php").then(function(res) {
+					fetch("https://mapi.hsuan.app/proxy.php").then(function(res) {
 						return res.text();
 					}).then(function(res) {
 						res = JSON.parse(res.replace(/臺/g,'台'))
 						if (res.length == 0) {
-							fetch("https://b.hsuan.app/proxy.php").then(function(res) {
+							fetch("https://mapi.hsuan.app/proxy.php").then(function(res) {
 								return res.json();
 							}).then(function(res) {
 								app.maskData = res;
@@ -130,11 +130,11 @@
 							app.loadingDataShowing = false;
 						}
 					})
-					fetch("https://b.hsuan.app/proxy.php").then(function(res) {
+					fetch("https://mapi.hsuan.app/proxy.php").then(function(res) {
 						return res.json();
 					}).then(function(res) {
 						if (res.length == 0) {
-							fetch("https://b.hsuan.app/proxy.php").then(function(res) {
+							fetch("https://mapi.hsuan.app/proxy.php").then(function(res) {
 								return res.json();
 							}).then(function(res) {
 								app.hospitalLocation = res;
